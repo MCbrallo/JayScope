@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-label="World map">
+  <rect width="1200" height="600" fill="none"/>
+  <path d="M80 230l30-10 40 8 18-6 10 10-10 16-20 2-22-8-24 4-22-10z" fill="#8ea2bf" fill-opacity=".35"/>
+  <path d="M280 210l26-6 30 6 12 12-10 18-28 6-20-8-10-14z" fill="#8ea2bf" fill-opacity=".35"/>
+  <path d="M440 200l40-10 40 6 24 14-8 18-30 8-30-6-14-12z" fill="#8ea2bf" fill-opacity=".35"/>
+  <path d="M700 220l30-8 28 10 10 12-6 12-22 8-20-8-10-16z" fill="#8ea2bf" fill-opacity=".35"/>
+  <path d="M860 240l34-8 32 10 12 10-6 16-28 8-30-10-12-12z" fill="#8ea2bf" fill-opacity=".35"/>
+  <path d="M1020 320l30-8 20 12 6 10-8 14-22 6-20-10-6-14z" fill="#8ea2bf" fill-opacity=".35"/>
+  <path d="M100 420l26-10 30 10 8 12-8 12-24 8-22-8-10-12z" fill="#8ea2bf" fill-opacity=".35"/>
+</svg>

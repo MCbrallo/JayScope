@@ -1,0 +1,316 @@
+<!-- plans.html — Plans & comparison. Uses local assets. SpaceX-like clean layout -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Plans — JayScope</title>
+  <meta name="description" content="Compare JayScope plans: Explorer, Observer, and Researcher/Partner. Monthly or yearly billing. Education discounts and add-ons available."/>
+  <meta name="theme-color" content="#000000">
+
+  <!-- OG/Twitter -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="JayScope Plans">
+  <meta property="og:description" content="Explorer, Observer (Most Popular), Researcher/Partner. Choose monthly or yearly billing.">
+  <meta property="og:image" content="assets/m42-orion.jpg">
+  <meta property="og:url" content="https://example.com/plans.html">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Organization","name":"JayScope","url":"https://example.com/","logo":"assets/logo.svg"}
+  </script>
+
+  <style>
+    :root{--bg:#0b0e13;--surface:rgba(255,255,255,.06);--text:#e8edf5;--muted:#a9b4c7;--accent:#33aaff;--accent-2:#a0e8ff;--warning:#ffd166;--border:rgba(255,255,255,.12);--radius:14px;--hairline:1px;--shadow:0 8px 30px rgba(0,0,0,.55)}
+    *{box-sizing:border-box}
+    html:focus-within{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif;line-height:1.6}
+    a{color:#fff;text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{width:min(1200px,92%);margin-inline:auto}
+    .glass{background:var(--surface);border:var(--hairline) solid var(--border);backdrop-filter:saturate(140%) blur(14px);-webkit-backdrop-filter:saturate(140%) blur(14px);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .btn{display:inline-block;padding:12px 18px;border-radius:999px;border:1px solid #fff;color:#0a0f1f;background:#fff;font-weight:800;transition:transform .2s ease}
+    .btn:hover{transform:translateY(-2px)}
+    .btn--ghost{background:transparent;color:#fff;border-color:var(--border)}
+    .btn--accent{background:linear-gradient(180deg,var(--accent),#1588d1);border-color:transparent;color:#06121f}
+    .kicker{color:#b8c3d7;font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:.8rem}
+    .section{padding: clamp(48px, 7vw, 84px) 0}
+
+    /* Nav */
+    .nav{position:sticky; top:0; z-index:50; background:rgba(0,0,0,.45); backdrop-filter: blur(10px) saturate(120%); -webkit-backdrop-filter: blur(10px) saturate(120%); border-bottom:var(--hairline) solid var(--border)}
+    .nav__row{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800}
+    .brand img{width:28px;height:28px}
+    .nav__links{display:none;gap:18px;align-items:center}
+    .nav__link{color:#c7d2e7}
+    .nav__link[aria-current="page"]{color:#fff;font-weight:800}
+    .nav__toggle{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;border:var(--hairline) solid var(--border);background:transparent;color:#fff}
+    @media (min-width: 900px){ .nav__links{display:flex} .nav__toggle{display:none} }
+    .nav__panel{display:none;flex-direction:column;gap:14px;padding:14px;margin-top:8px}
+    .nav__panel--open{display:flex}
+
+    /* Hero */
+    .hero{display:grid;place-items:center;padding:32px 0 12px}
+    .hero h1{margin:8px 0 0; font-size:clamp(1.8rem,5vw,2.6rem); text-align:center}
+    .hero p{color:#a9b4c7; text-align:center; margin:6px 0 0}
+
+    /* Billing toggle */
+    .billing{display:flex;gap:8px;align-items:center;justify-content:center;margin-top:16px}
+    .toggle{position:relative;width:68px;height:32px;border-radius:999px;background:rgba(255,255,255,.08);border:var(--hairline) solid var(--border);cursor:pointer}
+    .knob{position:absolute;top:3px;left:3px;width:26px;height:26px;border-radius:50%;background:linear-gradient(180deg,var(--accent),#1588d1);transition:left .22s ease}
+    .billing[data-mode="yearly"] .knob{left:39px}
+    .save{color:var(--warning);font-weight:800;font-size:.9rem}
+
+    /* Plans */
+    .plans{display:grid;gap:16px;margin-top:18px}
+    @media (min-width: 960px){ .plans{grid-template-columns:repeat(3,1fr)} }
+    .plan{position:relative;padding:18px;border:var(--hairline) solid var(--border)}
+    .plan--popular{outline:2px solid var(--accent); box-shadow:0 0 0 6px rgba(51,170,255,.1)}
+    .tag{position:absolute;top:10px;right:-36px;transform:rotate(35deg);background:linear-gradient(180deg,var(--accent),#1588d1);color:#02101b;padding:4px 46px;font-weight:900;letter-spacing:.02em}
+    .plan h2{margin:.2rem 0}
+    .price{font-size:2rem;margin:.2rem 0 .6rem}
+    .small{color:#a9b4c7}
+    .plan ul{margin:.4rem 0 1rem; padding-left:1.1rem; color:#a9b4c7}
+
+    /* Comparison table */
+    .table{margin-top:24px}
+    table{width:100%;border-collapse:collapse;border-spacing:0}
+    th,td{border-top:var(--hairline) solid var(--border);padding:10px}
+    th{text-align:left}
+    tr:hover td{background:rgba(255,255,255,.02)}
+
+    /* Add-ons & FAQ */
+    .addons{display:grid;gap:12px;margin-top:18px}
+    .faq{margin-top:22px}
+    .faq .item + .item{margin-top:10px}
+    .faq .btn{width:100%;text-align:left;background:rgba(255,255,255,.04);border:var(--hairline) solid var(--border);border-radius:12px;color:#fff}
+    .faq .panel{display:none;padding:12px;color:#a9b4c7}
+    .faq .panel[aria-hidden="false"]{display:block}
+
+    /* Footer */
+    footer{border-top:var(--hairline) solid var(--border); padding:32px 0 70px; margin-top:48px}
+    .foot{display:grid;gap:16px}
+    @media (min-width:960px){ .foot{grid-template-columns:2fr 1fr 1fr} }
+    .credits{color:#a9b4c7}
+    .cookie{position:fixed;inset-inline:12px;bottom:12px;display:none;gap:12px;align-items:center;justify-content:space-between;padding:12px 14px}
+    .cookie--show{display:flex}
+  </style>
+</head>
+<body>
+<header class="nav" role="banner">
+  <div class="container nav__row">
+    <a class="brand" href="index.html"><img src="assets/logo.svg" alt=""><span>A Telescope for Everyone</span></a>
+    <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navPanel">☰</button>
+    <nav class="nav__links" role="navigation" aria-label="Primary">
+      <a class="nav__link" href="index.html#about">About</a>
+      <a class="nav__link" href="index.html#how">How it works</a>
+      <a class="nav__link" href="index.html#uses">Use cases</a>
+      <a class="nav__link" href="index.html#network">Telescopes</a>
+      <a class="nav__link" href="plans.html" aria-current="page">Plans</a>
+      <a class="btn btn--ghost" href="#!">Log in</a>
+      <a class="btn btn--accent" href="#plans">Get started</a>
+    </nav>
+    <nav class="nav__panel glass" id="navPanel" role="navigation" aria-label="Mobile">
+      <a class="nav__link" href="index.html#about">About</a>
+      <a class="nav__link" href="index.html#how">How it works</a>
+      <a class="nav__link" href="index.html#uses">Use cases</a>
+      <a class="nav__link" href="index.html#network">Telescopes</a>
+      <a class="nav__link" href="plans.html" aria-current="page">Plans</a>
+      <a class="btn btn--ghost" href="#!">Log in</a>
+      <a class="btn btn--accent" href="#plans">Get started</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <p class="kicker">Subscriptions</p>
+    <h1>Choose your plan</h1>
+    <p>Flexible options for students, astrophotographers, and institutions.</p>
+
+    <div class="billing glass" id="billing" data-mode="monthly" role="group" aria-label="Billing toggle">
+      <span id="lblMonthly" class="kicker" aria-hidden="true">Monthly</span>
+      <button class="toggle" id="billingToggle" aria-pressed="false" aria-labelledby="lblMonthly lblYearly"><span class="knob" aria-hidden="true"></span></button>
+      <span id="lblYearly" class="kicker" aria-hidden="true">Yearly</span>
+      <span class="save" aria-live="polite">Save 2 months</span>
+    </div>
+  </div>
+</section>
+
+<section id="plans" class="section">
+  <div class="container plans" aria-label="Plan cards">
+    <article class="glass plan" aria-labelledby="h-explorer">
+      <p class="kicker">Explorer</p>
+      <h2 id="h-explorer">Entry tier for students and hobbyists</h2>
+      <p class="price" data-price-monthly="$9 / mo" data-price-yearly="$90 / yr">$9 / mo</p>
+      <p class="small">Hours/month: <strong>2 h</strong></p>
+      <ul>
+        <li>Access: Community telescopes</li>
+        <li>Queue: Standard</li>
+        <li>Data: Processed JPEG/PNG, standard resolution</li>
+        <li>Controls: Basic (exposure presets)</li>
+        <li>Support: Email</li>
+      </ul>
+      <a class="btn btn--accent" href="#!">Start with Explorer</a>
+    </article>
+
+    <article class="glass plan plan--popular" aria-labelledby="h-observer">
+      <div class="tag" aria-hidden="true">Most Popular</div>
+      <p class="kicker">Observer</p>
+      <h2 id="h-observer">For advanced amateurs &amp; astrophotographers</h2>
+      <p class="price" data-price-monthly="$39 / mo" data-price-yearly="$390 / yr">$39 / mo</p>
+      <p class="small">Hours/month: <strong>12 h</strong></p>
+      <ul>
+        <li>Access: Wider network + priority windows</li>
+        <li>Queue: Priority</li>
+        <li>Data: High-res + RAW/FITS download</li>
+        <li>Controls: Full exposure, filters, dithering</li>
+        <li>Pipeline: Calibrations (darks, flats, bias) + stacking</li>
+        <li>Support: Priority chat</li>
+      </ul>
+      <a class="btn btn--accent" href="#!">Get Observer</a>
+    </article>
+
+    <article class="glass plan" aria-labelledby="h-researcher">
+      <p class="kicker">Researcher / Partner</p>
+      <h2 id="h-researcher">Labs, clubs, institutions &amp; telescope owners</h2>
+      <p class="price">Contact sales</p>
+      <p class="small">Hours: <strong>Bulk packs / dedicated blocks</strong></p>
+      <ul>
+        <li>Access: Full network + dedicated time</li>
+        <li>API: Programmatic scheduling &amp; webhooks</li>
+        <li>Storage: Long-term archival (1 year included)</li>
+        <li>Admin: Multi-seat, role-based access</li>
+        <li>Owner mode: Revenue-share dashboard, telemetry, uptime</li>
+        <li>Support: SLA support</li>
+      </ul>
+      <a class="btn btn--accent" href="#!">Talk to Sales</a>
+      <p class="kicker" style="margin-top:10px">Calculator for hour blocks (TODO)</p>
+    </article>
+  </div>
+
+  <div class="container table glass" role="region" aria-label="Detailed plan comparison" style="padding:14px">
+    <h2 class="kicker" style="margin:0 0 8px">Feature comparison</h2>
+    <div style="overflow:auto">
+      <table aria-describedby="comp">
+        <caption id="comp" class="kicker" style="position:absolute;left:-9999px">Plan feature matrix</caption>
+        <thead><tr><th scope="col">Feature</th><th scope="col">Explorer</th><th scope="col">Observer</th><th scope="col">Researcher / Partner</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Hours / month</th><td>2 h</td><td>12 h</td><td>Dedicated blocks</td></tr>
+          <tr><th scope="row">Network access</th><td>Community telescopes</td><td>Wider network + priority</td><td>Full network + dedicated</td></tr>
+          <tr><th scope="row">Queueing</th><td>Standard</td><td>Priority</td><td>Reserved slots</td></tr>
+          <tr><th scope="row">Data format</th><td>Processed JPEG/PNG</td><td>High-res + RAW/FITS</td><td>Full pipeline + API export</td></tr>
+          <tr><th scope="row">Controls</th><td>Basic presets</td><td>Full exposure, filters, dithering</td><td>Programmatic & fine control</td></tr>
+          <tr><th scope="row">Calibrations</th><td>Basic</td><td>Darks/Flats/Bias + stacking</td><td>Custom pipeline</td></tr>
+          <tr><th scope="row">Support</th><td>Email</td><td>Priority chat</td><td>SLA</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="container addons">
+    <div class="glass" style="padding:14px">
+      <h3>Add-ons</h3>
+      <ul class="credits">
+        <li>Extra Hours Pack</li>
+        <li>Data Archival Extensions</li>
+        <li>Education Discount (verification required)</li>
+        <li>Bring Your Telescope onboarding (one-time setup)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container faq">
+    <h2>FAQ</h2>
+    <div class="item glass">
+      <button class="btn" aria-expanded="false" aria-controls="f1" id="f1b">How do you ensure booking fairness?</button>
+      <div id="f1" class="panel" role="region" aria-labelledby="f1b" aria-hidden="true">
+        Our scheduler balances plan priority with fairness and weather windows. Missed sessions due to weather are rebooked automatically.
+      </div>
+    </div>
+    <div class="item glass">
+      <button class="btn" aria-expanded="false" aria-controls="f2" id="f2b">Refunds &amp; weather policy</button>
+      <div id="f2" class="panel" role="region" aria-labelledby="f2b" aria-hidden="true">
+        If weather prevents your session, we rebook at no cost. If rebooking is unsuitable, we credit your hours back.
+      </div>
+    </div>
+    <div class="item glass">
+      <button class="btn" aria-expanded="false" aria-controls="f3" id="f3b">Who owns the images?</button>
+      <div id="f3" class="panel" role="region" aria-labelledby="f3b" aria-hidden="true">
+        You own your output data. JayScope provides processing but your captures remain yours. See Terms for attribution guidelines.
+      </div>
+    </div>
+    <div class="item glass">
+      <button class="btn" aria-expanded="false" aria-controls="f4" id="f4b">Safety &amp; remote kill-switch</button>
+      <div id="f4" class="panel" role="region" aria-labelledby="f4b" aria-hidden="true">
+        All partner telescopes implement telemetry &amp; safe limits. Operators retain an immediate remote stop (kill-switch).
+      </div>
+    </div>
+    <div class="item glass">
+      <button class="btn" aria-expanded="false" aria-controls="f5" id="f5b">Calibration frames</button>
+      <div id="f5" class="panel" role="region" aria-labelledby="f5b" aria-hidden="true">
+        Pipelines include darks, flats, and bias frames. Observer and Researcher tiers support custom sets and calibration scheduling.
+      </div>
+    </div>
+    <div class="item glass">
+      <button class="btn" aria-expanded="false" aria-controls="f6" id="f6b">Latency &amp; delivery</button>
+      <div id="f6" class="panel" role="region" aria-labelledby="f6b" aria-hidden="true">
+        Processed images are available shortly after capture. RAW/FITS bundles are queued for delivery with progress in your dashboard.
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top:22px; display:flex; gap:12px; flex-wrap:wrap; align-items:center">
+    <a class="btn btn--accent" href="#plans">Start with Explorer</a>
+    <a class="btn btn--ghost" href="#!">Talk to Sales</a>
+    <span class="kicker">Education? Ask about discounts.</span>
+  </div>
+</section>
+
+<footer role="contentinfo">
+  <div class="container foot">
+    <div>
+      <strong>JayScope</strong>
+      <p class="kicker" style="margin:.2rem 0 0">“Just a telescope for everyone” — We provide software services that make your telescope accessible for everyone while making a profit out of it.</p>
+      <p class="credits">© <span id="year"></span> JayScope. All rights reserved.</p>
+    </div>
+    <nav aria-label="Footer">
+      <p><a href="index.html#about">About</a></p>
+      <p><a href="plans.html" aria-current="page">Plans</a></p>
+      <p><a href="#!">Docs / API</a></p>
+      <p><a href="#!">Privacy</a> · <a href="#!">Terms</a></p>
+      <p><a href="#!">Contact</a></p>
+    </nav>
+    <div><p class="credits"><strong>Image credits</strong>: Orion Nebula (ESA/Hubble) if local JPG present.</p></div>
+  </div>
+
+  <div class="cookie glass" id="cookie" role="dialog" aria-live="polite" aria-label="Cookie consent">
+    <span>We use essential cookies only (no tracking).</span>
+    <button class="btn btn--accent" id="cookieAccept">Got it</button>
+  </div>
+</footer>
+
+<script>
+  const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+  // Year
+  $('#year').textContent=new Date().getFullYear();
+  // Mobile nav
+  const navToggle=$('#navToggle'), navPanel=$('#navPanel');
+  navToggle?.addEventListener('click',()=>{ const open=navPanel.classList.toggle('nav__panel--open'); navToggle.setAttribute('aria-expanded', open?'true':'false'); });
+  // Billing toggle
+  const billing=$('#billing'), toggle=$('#billingToggle'), prices=$$('[data-price-monthly]');
+  function setMode(mode){ billing.dataset.mode=mode; toggle.setAttribute('aria-pressed', mode==='yearly'?'true':'false'); prices.forEach(p=>p.textContent=p.getAttribute(mode==='yearly'?'data-price-yearly':'data-price-monthly')); }
+  toggle.addEventListener('click',()=> setMode(billing.dataset.mode==='monthly'?'yearly':'monthly'));
+  if(location.hash.includes('yearly')) setMode('yearly');
+  // FAQ
+  $$('.faq .item .btn').forEach(b=>b.addEventListener('click',()=>{const ex=b.getAttribute('aria-expanded')==='true'; const p=$('#'+b.getAttribute('aria-controls')); b.setAttribute('aria-expanded',(!ex).toString()); p.setAttribute('aria-hidden', ex?'true':'false');}));
+  // Cookie
+  const cookieKey='js_cookie_ok', cookie=$('#cookie'), cookieBtn=$('#cookieAccept');
+  if(!localStorage.getItem(cookieKey)){cookie.classList.add('cookie--show')}
+  cookieBtn?.addEventListener('click',()=>{localStorage.setItem(cookieKey,'1'); cookie.classList.remove('cookie--show')});
+  // SW
+  if('serviceWorker' in navigator){ navigator.serviceWorker.register('./sw.js').catch(()=>{}); }
+</script>
+</body>
+</html>
